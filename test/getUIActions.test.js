@@ -1,8 +1,9 @@
 import Device from '../'
 import should from 'should'
+import _ from 'lodash'
 
 describe('testing getUIActions', () => {
-  const deviceId = 'DU2SSE1478031311'
+  const deviceId = '4387cae1'
   let device
 
   before(() => {
@@ -15,7 +16,11 @@ describe('testing getUIActions', () => {
     .then(actions => {
       actions.should.be.instanceOf(Array)
       actions.length.should.not.be.equal(0)
-      console.log(actions)
+      
+      _.forEach(actions, (action) => {
+        console.log(action._widget._className)
+      })
+
       done()
     })
     .catch(err => {

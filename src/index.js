@@ -159,7 +159,9 @@ class Device {
   // TODO : test
   async getScreenResolution() {
     const regexp = /[0-9]+/gi
-    const cmd = `adb -s ${this.deviceId} shell dumpsys display | grep PhysicalDisplayInfo`
+    //console.log("Hello")
+    //const cmd = `adb -s ${this.deviceId} shell dumpsys display | finstr PhysicalDisplayInfo`
+    const cmd = `adb -s ${this.deviceId} shell wm size`;
     const output = await Device.shell(cmd)
     const array = output.match(regexp)
 
@@ -180,7 +182,7 @@ class Device {
    * -e name 'Donald Duck' -e phone 555-1234
    */
   async addContact(contactData) {
-    const cmd = `am start -a android.intent.action.INSERT 
+    const cmd = `am start -a android.intent.action.INSERT
     -t vnd.android.cursor.dir/contact ${contactData}`
     await this.adbshell(cmd)
     await this.sleep(2000)
@@ -436,10 +438,12 @@ class Device {
       }
       target = `${resultDir}/dumpfile.xml`
     }
-    const source = '/storage/sdcard0/window_dump.xml'
+    //const source = '/storage/sdcard0/window_dump.xml'
+    const source = '/sdcard/window_dump.xml'
     const cmd = `uiautomator dump ${source}`
     // const target = `${os.tmpdir()}/dumpfile.xml`
     await this.adbshell(cmd)
+    //console.log(target)
     return await this.pullFile(source, target)
   }
 
@@ -538,4 +542,3 @@ class Device {
 }
 
 export default Device
-

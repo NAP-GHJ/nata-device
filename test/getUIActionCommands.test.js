@@ -2,7 +2,8 @@ import Device from '../'
 import should from 'should'
 
 describe('testing getUIActionCommands', () => {
-  const deviceId = 'DU2SSE1478031311'
+  //const deviceId = 'DU2SSE1478031311'
+  const deviceId = 'd53ef30'
   let device
 
   before(() => {

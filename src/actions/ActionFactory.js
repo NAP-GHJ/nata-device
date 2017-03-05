@@ -42,6 +42,9 @@ function getActionsFromWidgets(device, widgets) {
       actions.push(new ClickAction(device, widget))
     }
 
+    if(widget.className === 'android.widget.ImageView' && widget.enabled === 'true' && widget.clickable === 'false'){
+      actions.push(new ClickAction(device,widget))
+    }
     if (widget.longClickable === 'true') {
       actions.push(new LongClickAction(device, widget))
     }
