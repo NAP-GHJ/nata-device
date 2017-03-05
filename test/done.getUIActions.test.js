@@ -1,8 +1,9 @@
 import Device from '../'
 import should from 'should'
+import _ from 'lodash'
 
-describe('testing getAvaliableActions', () => {
-  const deviceId = 'DU2SSE1478031311'
+describe('testing getUIActions', () => {
+  const deviceId = 'ZTEBV0730'
   let device
 
   before(() => {
@@ -11,11 +12,15 @@ describe('testing getAvaliableActions', () => {
 
   it('should get ui actions', function(done) {
     this.timeout(20000)
-    device.getAvaliableActions()
+    device.getUIActions()
     .then(actions => {
       actions.should.be.instanceOf(Array)
-      actions.length.should.not.be.equal(0)
-      console.log(actions)
+      console.log(actions.length)
+      
+      _.forEach(actions, (action) => {
+        console.log(action._widget._className)
+      })
+
       done()
     })
     .catch(err => {
@@ -27,5 +32,5 @@ describe('testing getAvaliableActions', () => {
 
 /**
  * npm run compile
- * mocha --compilers js:babel-core/register test/getAvaliableActions.test.js
+ * mocha --compilers js:babel-core/register test/getUIActions.test.js
  */

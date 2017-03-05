@@ -2,7 +2,7 @@ import Device from '../'
 import should from 'should'
 
 describe('testing getDeviceInfo', () => {
-  const deviceId = '4387cae1'
+  const deviceId = 'ZTEBV0730'
   let device
 
   before(() => {

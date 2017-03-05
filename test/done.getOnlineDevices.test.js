@@ -11,6 +11,7 @@ describe('testing getOnlineDevices', () => {
       const device = devices[0]
       device.should.have.ownProperty('id')
       device.should.have.ownProperty('type')
+      console.log(devices)
       done()
     })
     .catch(err => {

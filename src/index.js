@@ -443,7 +443,6 @@ class Device {
     const cmd = `uiautomator dump ${source}`
     // const target = `${os.tmpdir()}/dumpfile.xml`
     await this.adbshell(cmd)
-    //console.log(target)
     return await this.pullFile(source, target)
   }
 

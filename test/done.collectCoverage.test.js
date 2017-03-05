@@ -4,7 +4,7 @@ import path from 'path'
 import fs from 'fs'
 
 describe('testing device api', () => {
-  const deviceId = 'DU2SSE1478031311'
+  const deviceId = 'ZTEBV0730'
   const target = path.join(__dirname, './temp/coverage.ec')
   let device
 
