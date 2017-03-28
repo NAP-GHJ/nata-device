@@ -18,7 +18,8 @@ describe('testing getUIActions', () => {
       console.log(actions.length)
       
       _.forEach(actions, (action) => {
-        console.log(action._widget._className)
+        console.log(action.widget.className)
+        //get function
       })
 
       done()

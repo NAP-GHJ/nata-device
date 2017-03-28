@@ -28,29 +28,37 @@ function getActionsFromWidgets(device, widgets) {
       } else if (widget.className === 'android.support.v4.view.ViewPager') {
         actions.push(new SwipeAction(device, widget, SwipeDirection.RIGHT))
         actions.push(new SwipeAction(device, widget, SwipeDirection.LEFT))
+      } else if(widget.className === 'android.support.v7.widget.RecyclerView'){
+        actions.push(new SwipeAction(device, widget, SwipeDirection.DOWN))
+        actions.push(new SwipeAction(device, widget, SwipeDirection.UP))
       }
     }
     if ((widget.className === 'android.widget.TextView'
         || widget.className === 'android.widget.Button'
         || widget.className === 'android.widget.ImageView'
         || widget.className === 'android.widget.ImageButton'
-        || widget.className === 'android.widget.RelativeLayout'
-        || widget.className === 'android.widget.LinearLayout'
+        //|| widget.className === 'android.widget.RelativeLayout'
+        //|| widget.className === 'android.widget.LinearLayout'
         || widget.className === 'android.widget.CheckedTextView'
         || widget.className === 'android.widget.CheckBox'
     ) && widget.clickable === 'true') {
       actions.push(new ClickAction(device, widget))
     }
 
-    if(widget.className === 'android.widget.ImageView' && widget.enabled === 'true' && widget.clickable === 'false'){
+    //Some unclickable but enabled action 
+    if((widget.className === 'android.widget.ImageView'        
+      ||widget.className === 'android.widget.TextView')
+      && widget.enabled === 'true' && widget.clickable === 'false'){
       actions.push(new ClickAction(device,widget))
     }
-    if (widget.longClickable === 'true') {
-      actions.push(new LongClickAction(device, widget))
-    }
+
+    //Longchick actions
+    // if (widget.longClickable === 'true') {
+    //   actions.push(new LongClickAction(device, widget))
+    // }
 
     // text input actions
-    if (widget.className === 'android.widget.EditText' && widget.clickable === 'true') {
+    if ((widget.className === 'android.widget.EditText') && widget.clickable === 'true') {
       actions.push(new TextInputAction(device, widget))
     }
   })

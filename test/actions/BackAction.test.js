@@ -3,23 +3,24 @@ import should from 'should'
 import ActionParser from '../../lib/actions/ActionParser'
 
 describe('testing BackAction', () => {
-  const deviceId = 'DU2SSE1478031311'
+  const deviceId = '4387cae1'
   const actionString = 'Back'
 
-  let device
+  let device = new Device(deviceId)
 
-  before(async function() {
-    this.timeout(20000)
-    await Device.startServer()
-    device = new Device(deviceId)
-  })
+  // before(async function() {
+  //   this.timeout(20000)
+  //   await Device.startServer()
+  //   device = new Device(deviceId)
+  // })
 
-  it('should get input action', async function (done) {
+  it('should get input action', function (done) {
     this.timeout(20000)
     const action = ActionParser.parse(device, actionString)
     console.log(action)
-    await action.fire()
-    done()
+    action.fire().then(()=>{
+      done()    
+    })
   })
 })
 

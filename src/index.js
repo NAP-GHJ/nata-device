@@ -1,13 +1,15 @@
 import adb from 'adbkit'
+import adblogcat from 'adbkit-logcat'
 import _ from 'lodash'
 import os from 'os'
 import fs from 'fs'
-import { exec } from 'child_process'
+import { exec,spawn } from 'child_process'
 import AndroidKeyCode from './AndroidKeyCode.js'
 import DeviceInfo from './DeviceInfo.js'
 import utils from './utils.js'
 import ActionFactory from './actions/ActionFactory.js'
 import ActionParser from './actions/ActionParser.js'
+
 
 const client = adb.createClient()
 
@@ -499,6 +501,7 @@ class Device {
     return ActionFactory.createHomeAction(this)
   }
 
+/*Execute action 执行的是ActionCommand,其实动作的执行都是action.fire() */
   async executeAction(action) {
     await ActionParser.parse(this, action).fire()
   }
@@ -538,6 +541,48 @@ class Device {
       .catch(err => reject(err))
     })
   }
+
+  /**
+  * get package list from the device
+  * @return {Promise} package list 
+  **/
+  async getPackageList(){
+    const command = 'pm list packages'
+    const packageList = await this.adbshell(command)
+    return packageList  
+  }
+
+  /**
+   * get apkpath of the package from the device
+   * @return apk path
+   */
+  async getApkpath(_package){
+    const command =  `pm path ${_package}`
+    const apkpath = await this.adbshell(command)
+    return apkpath
+  }
+
+  /**
+   * open logcat and read logs from the device
+   * @return promise 
+   * */
+  clearLogcat(){
+    return new Promise((resolve,reject)=>{
+      let command = `adb -s ${this.deviceId} logcat -c `
+      exec(command,(err,stdout,stderr)=>{        
+        if(err) reject(err)
+        resolve('Clear logcat cache already')
+      })
+    })
+  }
+  async openLogcat(){ 
+    const clear = await this.clearLogcat()
+    console.log(clear)
+    var proc = spawn('adb',['logcat']);
+    return proc  
+  }
+
 }
+
 
 export default Device

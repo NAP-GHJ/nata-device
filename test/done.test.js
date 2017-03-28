@@ -15,25 +15,40 @@ describe('testing device api', () => {
     device.sleep(2000)
   })
 
-  // it('should install apk', async function(done) {
+  // it('should open logcat ', function(done) {
   //   this.timeout(40000)
-  //   await device.install(apkPath)
-  //   done()
+  //   device.openLogcat().then(proc=>{
+  //     proc.stdout.on('data',function (data) {
+  //       console.log(data.toString())
+  //     })
+  //     done()
+  //   })
+    
   // })
 
-  it('should dump ui', function(done){
-    this.timeout(5000)
-    device.dumpUI().then(target=>{
-      //console.log(target)
-      done()
-    })
-  })
+  // it('should dump ui', function(done){
+  //   this.timeout(5000)
+  //   device.dumpUI().then(target=>{
+  //     //console.log(target)
+  //     done()
+  //   })
+  // })
 
   it('should get focused pkgact', done => {
     device.getFocusedPackageAndActivity().then((pkgact)=>{
         console.log(pkgact)
         done()
     })
+
+    // device.Logcat().then(result=>{
+    //   console.log(result.stdout)
+    //   result.stdout.on('data',function(data){
+    //     console.log(data)
+    //     done()
+    //   })
+      
+    // })
+    
   })
 
   // it('should clear App Data', async done => {
@@ -42,22 +57,22 @@ describe('testing device api', () => {
   //   done()
   // })
 
-  it('should startActivity', function(done) {
-    // com.zte.UserHelp/.UserHelpActivity
+  // it('should startActivity', function(done) {
+  //   // com.zte.UserHelp/.UserHelpActivity
   
-    // const act = '.LoadingActivity'
-    // const pkg = 'com.cvicse.zhnt'
-    const pkg = 'com.zte.UserHelp'
-    const act = '.UserHelpActivity'
-    const componet = `${pkg}/${act}`
+  //   // const act = '.LoadingActivity'
+  //   // const pkg = 'com.cvicse.zhnt'
+  //   const pkg = 'com.zte.UserHelp'
+  //   const act = '.UserHelpActivity'
+  //   const componet = `${pkg}/${act}`
 
-    device.startActivity(componet).then(()=>{
-      device.getCurrentPackageName().then((pkg)=>{
-        console.log(pkg)
-        done()
-      })
-    })
-  })
+  //   device.startActivity(componet).then(()=>{
+  //     device.getCurrentPackageName().then((pkg)=>{
+  //       console.log(pkg)
+  //       done()
+  //     })
+  //   })
+  // })
 
   // it('should click (x,y)', async done => {
   //   const x = 100
@@ -66,11 +81,11 @@ describe('testing device api', () => {
   //   done()
   // })
 
-  it('should back', (done) => {
-    device.back().then(()=>{
-      done()
-    })
-  })
+  // it('should back', (done) => {
+  //   device.back().then(()=>{
+  //     done()
+  //   })
+  // })
 
   // it('should return all the connnected devices id', async done => {
   //   const ids = await device.getOnlineDeviceIds()
